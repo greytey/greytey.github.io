@@ -37,12 +37,13 @@ class Clock extends React.Component {
   render() {
     return (
       <div>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+        <h2>{this.state.date.toLocaleTimeString()}</h2>
       </div>
     );
   }
 }
-root.render(<Clock />);
+const clock = ReactDOM.createRoot(document.getElementById('clock'));
+clock.render(<Clock />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
