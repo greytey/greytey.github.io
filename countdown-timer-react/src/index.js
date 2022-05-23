@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import PropTypes from 'prop-types';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 /*root.render(
@@ -94,8 +95,8 @@ form.render(<DateTimeForm />);
 class Calculations extends React.Component{
   constructor(props) {
     super(props);
-    this.setState({timeRemaining : this.getTimeRemaining(this.props.date, this.props.time)})
     this.getTimeRemaining = this.getTimeRemaining.bind(this);
+    this.setState({timeRemaining : this.getTimeRemaining(this.props.date, this.props.time)})
   }
 
   componentDidMount() {
@@ -138,6 +139,10 @@ class Calculations extends React.Component{
     );
   }
 }
+Calculations.propTypes = {
+  date : PropTypes.instanceOf(Date).isRequired,
+  time : PropTypes.instanceOf(Date).isRequired
+};
 
 
 // If you want to start measuring performance in your app, pass a function
