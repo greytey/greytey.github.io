@@ -1,17 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+//import App from './App';
 import reportWebVitals from './reportWebVitals';
 import PropTypes from 'prop-types';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-/*root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);*/
-
 
 //Uhr kopiert aus https://reactjs.org/docs/state-and-lifecycle.html
 class Clock extends React.Component {
@@ -40,8 +32,8 @@ class Clock extends React.Component {
   render() {
     return (
       <div>
-        <h2 class="display-2">{this.state.date.toLocaleTimeString()}</h2>
-        <h6 class="display-4">{this.state.date.toDateString()}</h6>
+        <h2 className="display-2">{this.state.date.toLocaleTimeString()}</h2>
+        <h6 className="display-4">{this.state.date.toDateString()}</h6>
       </div>
     );
   }
@@ -56,7 +48,7 @@ class DateTimeForm extends React.Component {
     this.state = {valueDate: {}, valueTime: {}};
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -69,22 +61,22 @@ class DateTimeForm extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  buttonClick(event) {
     const output = ReactDOM.createRoot(document.getElementById('output'));
-    const element = <Calculations date = {this.state.valueDate} time = {this.state.valueTime} />;
-    output.render(element);
+    var goal = this.state.valueDate + this.state.valueTime;
+    output.render(<Calculations goal = {new Date(goal)} />);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label class="layout-form" >Date: 
-        <input name="valueDate" type="date" class="rounded form-control" value={this.state.valueDate} onChange={this.handleInputChange}/>
+      <form>
+        <label className="layout-form" >Date: 
+        <input name="valueDate" type="date" className="rounded form-control" value={this.state.valueDate} onChange={this.handleInputChange}/>
         </label>
-        <label class="layout-form" >Time: 
-        <input name="valueTime" type="time" class="rounded form-control" value={this.state.valueTime} onChange={this.handleInputChange} />
+        <label className="layout-form" >Time: 
+        <input name="valueTime" type="time" className="rounded form-control" value={this.state.valueTime} onChange={this.handleInputChange} />
         </label>
-        <input type="submit" class="btn btn-secondary layout-form" value="Submit" />
+        <input type="button" className="btn btn-secondary layout-form" value="Submit" onClick={this.buttonClick()} />
       </form>
     );
   }
@@ -95,16 +87,17 @@ form.render(<DateTimeForm />);
 class Calculations extends React.Component{
   constructor(props) {
     super(props);
+    this.today = new Date()
+    this.goal = new Date(this.props.goal);
     this.getTimeRemaining = this.getTimeRemaining.bind(this);
-    this.setState({timeRemaining : this.getTimeRemaining(this.props.date, this.props.time)})
+    this.setState({timeRemaining : {}})
   }
 
   componentDidMount() {
-    this.goalDate = this.props.date.toDateString();
-    this.goalTime = this.props.time;
+    this.goal = new Date(this.props.goal);
     this.today = new Date();
     console.log("Mount: " + this.goalDate + " and " + this.goalTime);
-    this.setState({timeRemaining : this.getTimeRemaining(this.goalDate, this.goalTime)})
+    this.setState({timeRemaining : this.getTimeRemaining()})
     this.timerID = setInterval(
       () => this.tick(),
       1000
@@ -119,10 +112,8 @@ class Calculations extends React.Component{
     this.today = new Date()
   }
 
-  getTimeRemaining(goalDate, goalTime) {
-    var goal = new Date(goalDate);
-    goal.setHours(goalTime);
-    var distance = goal.getTime() - this.today.getTime();
+  getTimeRemaining() {
+    var distance = this.goal.getTime() - this.today.getTime();
     console.log("Distance was calculated: " + {distance});
 
     this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -134,14 +125,13 @@ class Calculations extends React.Component{
   render() {
     return (
       <div>
-        <h2 class="display-2 text-center">{this.days} days, {this.hours} hours, {this.minutes} minutes and {this.seconds} seconds</h2>
+        <h2 className="display-2 text-center">{this.days} days, {this.hours} hours, {this.minutes} minutes and {this.seconds} seconds</h2>
       </div>
     );
   }
 }
 Calculations.propTypes = {
-  date : PropTypes.instanceOf(Date).isRequired,
-  time : PropTypes.instanceOf(Date).isRequired
+  goal : PropTypes.instanceOf(Date).isRequired
 };
 
 
