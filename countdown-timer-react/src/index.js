@@ -69,9 +69,9 @@ class DateTimeForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label class="m-3">Date: <input type="date" class="rounded form-control" value={this.state.valueDate} /></label>
-        <label class="m-3">Time: <input type="time" class="rounded form-control" value={this.state.valueTime} /></label>
-        <input type="submit" class="btn btn-secondary m-3" value="Submit" />
+        <label class="layout-form" >Date: <input type="date" class="rounded form-control" value={this.state.valueDate} /></label>
+        <label class="layout-form" >Time: <input type="time" class="rounded form-control" value={this.state.valueTime} /></label>
+        <input type="submit" class="btn btn-secondary layout-form" value="Submit" />
       </form>
     );
   }
