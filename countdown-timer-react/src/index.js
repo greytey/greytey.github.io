@@ -11,6 +11,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
   </React.StrictMode>
 );*/
 
+
+//Uhr kopiert aus https://reactjs.org/docs/state-and-lifecycle.html
 class Clock extends React.Component {
   constructor(props) {
     super(props);
