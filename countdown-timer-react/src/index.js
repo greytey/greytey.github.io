@@ -52,25 +52,37 @@ clock.render(<Clock />);
 class DateTimeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {valueDate: 'DD.MM.YYYY', valueTime: 'HH:MM'};
+    this.state = {valueDate: {}, valueTime: {}};
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    const output = ReactDOM.createRoot(document.getElementById('output'));
+    const element = <Calculations date = {this.state.valueDate} time = {this.state.valueTime} />;
+    output.render(element);
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label class="layout-form" >Date: <input type="date" class="rounded form-control" value={this.state.valueDate} /></label>
-        <label class="layout-form" >Time: <input type="time" class="rounded form-control" value={this.state.valueTime} /></label>
+        <label class="layout-form" >Date: 
+        <input name="valueDate" type="date" class="rounded form-control" value={this.state.valueDate} onChange={this.handleInputChange}/>
+        </label>
+        <label class="layout-form" >Time: 
+        <input name="valueTime" type="time" class="rounded form-control" value={this.state.valueTime} onChange={this.handleInputChange} />
+        </label>
         <input type="submit" class="btn btn-secondary layout-form" value="Submit" />
       </form>
     );
@@ -78,6 +90,55 @@ class DateTimeForm extends React.Component {
 }
 const form = ReactDOM.createRoot(document.getElementById('form'));
 form.render(<DateTimeForm />);
+
+class Calculations extends React.Component{
+  constructor(props) {
+    super(props);
+    this.setState({timeRemaining : this.getTimeRemaining(this.props.date, this.props.time)})
+    this.getTimeRemaining = this.getTimeRemaining.bind(this);
+  }
+
+  componentDidMount() {
+    this.goalDate = this.props.date.toDateString();
+    this.goalTime = this.props.time;
+    this.today = new Date();
+    console.log("Mount: " + this.goalDate + " and " + this.goalTime);
+    this.setState({timeRemaining : this.getTimeRemaining(this.goalDate, this.goalTime)})
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.today = new Date()
+  }
+
+  getTimeRemaining(goalDate, goalTime) {
+    var goal = new Date(goalDate);
+    goal.setHours(goalTime);
+    var distance = goal.getTime() - this.today.getTime();
+    console.log("Distance was calculated: " + {distance});
+
+    this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  }
+
+  render() {
+    return (
+      <div>
+        <h2 class="display-2 text-center">{this.days} days, {this.hours} hours, {this.minutes} minutes and {this.seconds} seconds</h2>
+      </div>
+    );
+  }
+}
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
