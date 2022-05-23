@@ -3,13 +3,45 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 //import App from './App';
 import reportWebVitals from './reportWebVitals';
-import PropTypes from 'prop-types';
+
+var goalForCalculations = null;
+
+class Site extends React.Component {
+  render() {
+    return (
+      <div>
+        <div className="row">
+          <div className="col align-self-start">
+            <h1 className="display-2 layout-form">Countdown Timer</h1>
+          </div>
+          <div className="col align-self-end text-right">
+            <div id="clock" className="col align-self-end">
+              <Clock />
+            </div>
+          </div>
+        </div><div className="row">
+          <div className="col justify-content-center">
+            <div id="form">
+              <DateTimeForm />
+            </div>
+          </div>
+        </div><div className="row">
+          <div className="col justify-content-center">
+            <div id="output">
+              <Calculations goal={goalForCalculations} />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
 
 //Uhr kopiert aus https://reactjs.org/docs/state-and-lifecycle.html
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = { date: new Date() };
   }
 
   componentDidMount() {
@@ -38,17 +70,25 @@ class Clock extends React.Component {
     );
   }
 }
-const clock = ReactDOM.createRoot(document.getElementById('clock'));
-clock.render(<Clock />);
 
 //Hilfe von https://reactjs.org/docs/forms.html
 class DateTimeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {valueDate: {}, valueTime: {}};
+    this.state = { valueDate: {}, valueTime: {} };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  buttonClick(event) {
+    event.preventDefault();
+    if(this.state.valueDate != null){
+      if(this.state.valueTime != null){
+        goalForCalculations = this.state.valueDate + this.state.valueTime;
+      } else {
+        goalForCalculations = this.state.valueDate;
+      }
+    }
   }
 
   handleInputChange(event) {
@@ -61,43 +101,33 @@ class DateTimeForm extends React.Component {
     });
   }
 
-  buttonClick(event) {
-    const output = ReactDOM.createRoot(document.getElementById('output'));
-    var goal = this.state.valueDate + this.state.valueTime;
-    output.render(<Calculations goal = {new Date(goal)} />);
-  }
-
   render() {
     return (
-      <form>
-        <label className="layout-form" >Date: 
-        <input name="valueDate" type="date" className="rounded form-control" value={this.state.valueDate} onChange={this.handleInputChange}/>
+      <div>
+        <label className="layout-form" >Date:
+          <input name="valueDate" type="date" className="rounded form-control" value={this.state.valueDate} onChange={this.handleInputChange} />
         </label>
-        <label className="layout-form" >Time: 
-        <input name="valueTime" type="time" className="rounded form-control" value={this.state.valueTime} onChange={this.handleInputChange} />
+        <label className="layout-form" >Time:
+          <input name="valueTime" type="time" className="rounded form-control" value={this.state.valueTime} onChange={this.handleInputChange} />
         </label>
-        <input type="button" className="btn btn-secondary layout-form" value="Submit" onClick={this.buttonClick()} />
-      </form>
+        <button type="button" className="btn btn-secondary layout-form" onClick={this.buttonClick}>Enter</button>
+      </div>
     );
   }
 }
-const form = ReactDOM.createRoot(document.getElementById('form'));
-form.render(<DateTimeForm />);
 
-class Calculations extends React.Component{
+
+class Calculations extends React.Component {
   constructor(props) {
     super(props);
-    this.today = new Date()
-    this.goal = new Date(this.props.goal);
-    this.getTimeRemaining = this.getTimeRemaining.bind(this);
-    this.setState({timeRemaining : {}})
+    if (this.props.goal != null) {
+    this.state = { timeRemaining: {}, today: new Date(), goal: new Date(this.props.goal) };
+      this.getTimeRemaining = this.getTimeRemaining.bind(this);
+      this.setState = { timeRemaining: this.getTimeRemaining() }
+    }
   }
 
   componentDidMount() {
-    this.goal = new Date(this.props.goal);
-    this.today = new Date();
-    console.log("Mount: " + this.goalDate + " and " + this.goalTime);
-    this.setState({timeRemaining : this.getTimeRemaining()})
     this.timerID = setInterval(
       () => this.tick(),
       1000
@@ -109,30 +139,37 @@ class Calculations extends React.Component{
   }
 
   tick() {
-    this.today = new Date()
+    this.setState = { today: new Date() }
   }
 
   getTimeRemaining() {
-    var distance = this.goal.getTime() - this.today.getTime();
-    console.log("Distance was calculated: " + {distance});
+    if (this.props.goal != null) {
+      var distance = this.state.goal.getTime() - this.state.today.getTime();
+      console.log("Distance was calculated: " + { distance });
 
-    this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    }
   }
-
   render() {
-    return (
-      <div>
-        <h2 className="display-2 text-center">{this.days} days, {this.hours} hours, {this.minutes} minutes and {this.seconds} seconds</h2>
-      </div>
-    );
+    if (this.props.goal == null) {
+      return (
+        <h2 className='display-3 text-center'>Bitte wählen Sie ein Datum und eine Zeit.</h2>
+      )
+    } else {
+      return (
+        <div>
+          <h2 className="display-2 text-center">{this.days} days, {this.hours} hours, {this.minutes} minutes and {this.seconds} seconds</h2>
+        </div>
+      );
+    }
   }
 }
-Calculations.propTypes = {
-  goal : PropTypes.instanceOf(Date).isRequired
-};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Site />)
 
 
 // If you want to start measuring performance in your app, pass a function
