@@ -46,7 +46,7 @@ class Clock extends React.Component {
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
-      1000
+      500
     );
   }
 
@@ -117,17 +117,17 @@ class Calculations extends React.Component {
   constructor(props) {
     super(props);
     if (goalForCalculations != null) {
-      this.state = { timeRemaining: "", goal: new Date(goalForCalculations) };
+      this.state = {timeRemaining: "", goal: new Date(goalForCalculations)};
       this.getTimeRemaining = this.getTimeRemaining.bind(this);
       this.tick = this.tick.bind(this);
-      this.setState = {timeRemaining: this.getTimeRemaining() }
+      this.getTimeRemaining();
     }
   }
 
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
-      1000
+      500
     );
   }
 
@@ -147,13 +147,13 @@ class Calculations extends React.Component {
       this.hours = Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       this.minutes = Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60));
       this.seconds = Math.floor((this.distance % (1000 * 60)) / 1000);
-      this.setState = {timeRemaining: this.days +  " days, " + this.hours + " hours, " + this.minutes + " minutes and " + this.seconds + " seconds"};
+      this.setState({timeRemaining: this.days +  " days, " + this.hours + " hours, " + this.minutes + " minutes and " + this.seconds + " seconds".toString()});
     }
   }
   render() {
-    if (isNaN(this.distance)) {
+    if (isNaN(this.distance)||this.distance < 0) {
       return (
-        <h2 className='display-3 text-center'>Bitte wählen Sie ein Datum und eine Zeit.</h2>
+        <h2 className='display-3 text-center'>Bitte wählen Sie ein Zeitpunkt in der Zukunft.</h2>
       )
     } else {
       return (
