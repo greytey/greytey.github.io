@@ -28,7 +28,6 @@ class Site extends React.Component {
         </div><div className="row">
           <div className="col justify-content-center">
             <div id="output">
-              <Calculations goal={goalForCalculations} />
             </div>
           </div>
         </div>
@@ -83,7 +82,9 @@ class DateTimeForm extends React.Component {
 
   buttonClick(event) {
     event.preventDefault();
-    goalForCalculations = this.state.valueDate + this.state.valueTime;
+    goalForCalculations = this.state.valueDate + " " + this.state.valueTime + ":00";
+    const output = ReactDOM.createRoot(document.getElementById('output'));
+    output.render(<Calculations />)
   }
 
   handleInputChange(event) {
@@ -115,10 +116,11 @@ class DateTimeForm extends React.Component {
 class Calculations extends React.Component {
   constructor(props) {
     super(props);
-    if (this.props.goal != null) {
-    this.state = { timeRemaining: {}, today: new Date(), goal: new Date(this.props.goal) };
+    if (goalForCalculations != null) {
+      this.state = { timeRemaining: "", goal: new Date(goalForCalculations) };
       this.getTimeRemaining = this.getTimeRemaining.bind(this);
-      this.setState = { timeRemaining: this.getTimeRemaining() }
+      this.tick = this.tick.bind(this);
+      this.setState = {timeRemaining: this.getTimeRemaining() }
     }
   }
 
@@ -134,29 +136,29 @@ class Calculations extends React.Component {
   }
 
   tick() {
-    this.setState = { today: new Date(), goal : goalForCalculations }
+    this.getTimeRemaining();
   }
 
   getTimeRemaining() {
-    if (this.props.goal != null) {
-      var distance = this.state.goal.getTime() - this.state.today.getTime();
-      console.log("Distance was calculated: " + { distance });
+    if (goalForCalculations != null) {
+      this.distance = this.state.goal.getTime() - new Date().getTime();
 
-      this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      this.days = Math.floor(this.distance / (1000 * 60 * 60 * 24));
+      this.hours = Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      this.minutes = Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60));
+      this.seconds = Math.floor((this.distance % (1000 * 60)) / 1000);
+      this.setState = {timeRemaining: this.days +  " days, " + this.hours + " hours, " + this.minutes + " minutes and " + this.seconds + " seconds"};
     }
   }
   render() {
-    if (this.props.goal == null) {
+    if (isNaN(this.distance)) {
       return (
         <h2 className='display-3 text-center'>Bitte wählen Sie ein Datum und eine Zeit.</h2>
       )
     } else {
       return (
         <div>
-          <h2 className="display-2 text-center">{this.days} days, {this.hours} hours, {this.minutes} minutes and {this.seconds} seconds</h2>
+          <h2 className="display-2 text-center">{this.state.timeRemaining.toString()}</h2>
         </div>
       );
     }
