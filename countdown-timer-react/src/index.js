@@ -73,22 +73,17 @@ class Clock extends React.Component {
 
 //Hilfe von https://reactjs.org/docs/forms.html
 class DateTimeForm extends React.Component {
+
   constructor(props) {
     super(props);
-    this.state = { valueDate: {}, valueTime: {} };
-
+    this.state = { valueDate: new Date(), valueTime: "00:00" };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.buttonClick = this.buttonClick.bind(this);
   }
 
   buttonClick(event) {
     event.preventDefault();
-    if(this.state.valueDate != null){
-      if(this.state.valueTime != null){
-        goalForCalculations = this.state.valueDate + this.state.valueTime;
-      } else {
-        goalForCalculations = this.state.valueDate;
-      }
-    }
+    goalForCalculations = this.state.valueDate + this.state.valueTime;
   }
 
   handleInputChange(event) {
@@ -139,7 +134,7 @@ class Calculations extends React.Component {
   }
 
   tick() {
-    this.setState = { today: new Date() }
+    this.setState = { today: new Date(), goal : goalForCalculations }
   }
 
   getTimeRemaining() {
