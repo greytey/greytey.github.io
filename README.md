@@ -3,26 +3,26 @@
 # Lernatelier 1306 React
 ## Melanie Völlmin, Joel Jütte
 
-# Informieren: 
-## Anforderungsanalyse: 
+# Informieren
+## Anforderungsanalyse
 
-Nr. | Muss / Kann |  Anf.-typ | Anforderung |
-----|----------|-------------|-------------|
-1. | Muss | Funktional | Es gibt einen Countdown bis zu einem Datum, welches von einem Benutzer eigegeben wurde. |
-2. | Muss	| Funktional | Der Countdown ist in Tagen, Stunden, Minuten und Sekunden aufgeteilt. |
-3. | Kann |	Qualität | Oben rechts werden die Uhrzeit und das Datum angezeigt. |
-4. | Muss |	Qualität | Minimalistisches schwarz-weiss Design. |
-5. | Muss |	Qualität | Wird ein Datum in der Vergangenheit gewählt, erscheint folgende Meldung: «Please select a time in the future.». |
-6. | Muss |	Funktional | Eingaben werden geprüft und Fehler behandelt. |
-7. | Muss	| Rand | Git wird verwendet. |
-8. | Muss |	Rand | Das Programm ist am 13.06.2022 fertig. |
-9. | Muss	| Rand | Die Seite ist komplett auf Englisch gestaltet. |
+Nr. | Muss / Kann | Anf.-typ | Anforderung |
+----|-------------|----------|-------------|
+1 | Muss | Funktional | Es gibt einen Countdown bis zu einem Datum, welches von einem Benutzer eigegeben wurde. |
+2 | Muss	| Funktional | Der Countdown ist in Tagen, Stunden, Minuten und Sekunden aufgeteilt. |
+3 | Kann |	Qualität | Oben rechts werden die Uhrzeit und das Datum angezeigt. |
+4 | Muss |	Qualität | Minimalistisches schwarz-weiss Design. |
+5 | Muss |	Qualität | Wird ein Datum in der Vergangenheit gewählt, erscheint folgende Meldung: «Please select a time in the future.». |
+6 | Muss |	Funktional | Eingaben werden geprüft und Fehler behandelt. |
+7 | Muss	| Rand | Git wird verwendet. |
+8 | Muss |	Rand | Das Programm ist am 13.06.2022 fertig. |
+9 | Muss	| Rand | Die Seite ist komplett auf Englisch gestaltet. |
 
 Noch zu erarbeitende Grundlagen: 
 React – Tutorial https://reactjs.org/docs/hello-world.html 
 
-# Planen:
-ToDo-Liste: 
+# Planen
+## ToDo-Liste
 
 Was | Wer |	Deadline | 
 ----|-----|----------|
@@ -34,13 +34,14 @@ HTML Gerüst und Userinterface via Bootstrap |	Zusammen | 23.05.2022 |
 React implementieren für die Uhr und die Berechnung |	Joel Uhr, Melanie Berechnung | 30.05.2022 |
 Projekt mit GitHub Pages veröffentlichen | Zusammen |	13.06.2022 |
 
-# Entscheiden: 
+# Entscheiden
 ### Wieso haben wir uns für dieses Projekt entschieden? 
 Einer unserer Lehrer hat uns im Unterricht einmal darauf aufmerksam gemacht, dass React in der Webentwicklung wichtig ist. Deshalb haben wir gedacht, wir nutzen die eher kurze Projektzeit effizient für einen kleinen React Exkurs. 
 
-# Realisieren:
-# Testen:
-## Testfälle:
+# Realisieren
+
+# Testen
+## Testfälle
 
 Testfall | Voraussetzung | Input | Output |
 ---------|---------------|-------|--------|
@@ -54,7 +55,7 @@ Testfall | Voraussetzung | Input | Output |
 8.1	| Es ist der 13.06.2022 |	Website wird geöffnet |	Die Seite ist fertig und entspricht allen Anforderungen. |
 9.1	| Seite geöffnet | - | Sämtlicher Text auf der Webpage ist auf Englisch |
 
-## Testbericht: 
+## Testbericht
 
 Test-Nr. | Testfall	| Datum | Tester| Status| Bemerkung| Unterschrift |
 ---------|----------|-------|-------|-------|----------|--------------|
@@ -68,5 +69,5 @@ Test-Nr. | Testfall	| Datum | Tester| Status| Bemerkung| Unterschrift |
 8.1.1	| 8.1	| 13.06.2022 |	Joel Jütte |	OK |	-	| J.J|
 9.1.1	| 9.1	| 13.06.2022 |	Joel Jütte |	OK |	-	| J.J|
 
-## Fazit: 
+## Fazit
 Die Webpage ist veröffentlicht und voll funktionsfähig. 
