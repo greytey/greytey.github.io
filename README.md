@@ -1,10 +1,8 @@
-# greytey.github.io
-
 # Lernatelier 1306 React
-## Melanie Völlmin, Joel Jütte
+Melanie Völlmin, Joel Jütte
 
 # Informieren
-## Anforderungsanalyse
+### Anforderungsanalyse
 
 Nr. | Muss / Kann | Anf.-typ | Anforderung |
 ----|-------------|----------|-------------|
@@ -22,7 +20,7 @@ Noch zu erarbeitende Grundlagen:
 React – Tutorial https://reactjs.org/docs/hello-world.html 
 
 # Planen
-## ToDo-Liste
+### ToDo-Liste
 
 Was | Wer |	Deadline | 
 ----|-----|----------|
@@ -41,7 +39,7 @@ Einer unserer Lehrer hat uns im Unterricht einmal darauf aufmerksam gemacht, das
 # Realisieren
 
 # Testen
-## Testfälle
+### Testfälle
 
 Testfall | Voraussetzung | Input | Output |
 ---------|---------------|-------|--------|
@@ -55,7 +53,7 @@ Testfall | Voraussetzung | Input | Output |
 8.1	| Es ist der 13.06.2022 |	Website wird geöffnet |	Die Seite ist fertig und entspricht allen Anforderungen. |
 9.1	| Seite geöffnet | - | Sämtlicher Text auf der Webpage ist auf Englisch |
 
-## Testbericht
+### Testbericht
 
 Test-Nr. | Testfall	| Datum | Tester| Status| Bemerkung| Unterschrift |
 ---------|----------|-------|-------|-------|----------|--------------|
@@ -69,5 +67,5 @@ Test-Nr. | Testfall	| Datum | Tester| Status| Bemerkung| Unterschrift |
 8.1.1	| 8.1	| 13.06.2022 |	Joel Jütte |	OK |	-	| J.J|
 9.1.1	| 9.1	| 13.06.2022 |	Joel Jütte |	OK |	-	| J.J|
 
-## Fazit
+### Fazit
 Die Webpage ist veröffentlicht und voll funktionsfähig. 
