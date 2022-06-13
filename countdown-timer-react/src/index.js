@@ -153,7 +153,7 @@ class Calculations extends React.Component {
   render() {
     if (isNaN(this.distance)||this.distance < 0) {
       return (
-        <h2 className='display-3 text-center'>Bitte wählen Sie ein Zeitpunkt in der Zukunft.</h2>
+        <h2 className='display-3 text-center'>Please select a time in the future.</h2>
       )
     } else {
       return (
